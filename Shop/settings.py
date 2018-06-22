@@ -47,10 +47,13 @@ INSTALLED_APPS = [
     'xadmin',
     'crispy_forms',
     'rest_framework',
-    'django_filters'
+    'django_filters', #过滤
+    'corsheaders', #跨域请求
 ]
 
 MIDDLEWARE = [
+    #添加跨域求情中间件
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -59,6 +62,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+#允许跨域请求
+CORS_ORIGIN_ALLOW_ALL = True
 
 ROOT_URLCONF = 'Shop.urls'
 

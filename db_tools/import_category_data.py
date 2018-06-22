@@ -39,6 +39,7 @@ for level1_data in row_data:
 		level2_instance.name = level2_data['name']
 		level2_instance.code = level2_data['code']
 		level2_instance.category_type = 2
+		level2_instance.parent_category = level1_instance
 		level2_instance.save()
 
 		for level3_data in level2_data['sub_categorys']:
@@ -46,4 +47,5 @@ for level1_data in row_data:
 			level3_instance.name = level3_data['name']
 			level3_instance.code = level3_data['code']
 			level3_instance.category_type = 3
+			level3_instance.parent_category = level2_instance
 			level3_instance.save()
