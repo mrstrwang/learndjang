@@ -1,29 +1,34 @@
-# from django.shortcuts import render
-# from django.views.generic import View
-#  from .models import Goods
-# from django.http.response import JsonResponse,HttpResponse
-# from django.core.serializers import serialize
-# import json
-
-# from .models import Goods
-# from .serializers import GoodsSerializer
-# from rest_framework.response import Response
-# from rest_framework.views import APIView
+from rest_framework.pagination import PageNumberPagination
+from rest_framework import mixins
+from rest_framework import viewsets
 
 from .models import Goods
-from rest_framework import mixins
-from rest_framework import generics
 from .serializers import GoodsSerializer
+
+# from django_filters.rest_framework import DjangoFilterBackend
+from .filters import GoodsFilter
 
 # Create your views here.
 
-class GoodsListView(mixins.ListModelMixin,generics.GenericAPIView):
-	"""商品详情"""
-	queryset = Goods.objects.all()
-	serializer_class = GoodsSerializer
 
-	def get(self,request):
-		return self.list(request)
+class GoodsListPagination(PageNumberPagination):
+	page_size = 10
+	page_size_query_param = 'page_size'
+	page_query_param = 'page'
+
+
+class GoodsListView(mixins.ListModelMixin,viewsets.GenericViewSet):
+	"""商品详情"""
+	# 终极版
+	# 得到所有的商品
+	queryset = Goods.objects.all()
+	#序列化期
+	serializer_class = GoodsSerializer
+	#添加分页配置，setting.py就可以省略了
+	pagination_class = GoodsListPagination
+
+	# 自定义过滤器
+	filter_class = GoodsFilter
 
 
 	# def get(self,request,format=None):
