@@ -9,7 +9,8 @@ class GoodsAdmin(object):
 
 
 class GoodsCategoryAdmin(object):
-	pass
+	list_display = ['name', 'category_type', 'is_tab']
+	list_filter = ['category_type']
 
 
 class GoodsCategoryBrandAdmin(object):

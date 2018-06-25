@@ -1,11 +1,21 @@
 from django_filters import rest_framework as filters
 from .models import Goods
+from django.db.models import Q
+
 
 class GoodsFilter(filters.FilterSet):
-	min_price = filters.NumberFilter(name='shop_price',lookup_expr='gte')
-	max_price = filters.NumberFilter(name='shop_price',lookup_expr='lte')
+	pricemin = filters.NumberFilter(name='shop_price',lookup_expr='gte')
+	pricemax = filters.NumberFilter(name='shop_price',lookup_expr='lte')
 	name = filters.CharFilter(name='name',lookup_expr='icontains')
+	#支持前端新的字段过滤
+	top_category = filters.NumberFilter(method='top_category_filters')
+
+	def top_category_filters(self,queryset,name,value):
+		queryset = queryset.filter(Q(category__id=value)|Q(category__parent_category_id=value))
+		return queryset
+
+
 
 	class Meta:
 		model = Goods
-		fields = ['min_price', 'max_price']
+		fields = ['pricemin', 'pricemax','name']

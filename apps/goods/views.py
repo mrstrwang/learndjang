@@ -1,18 +1,17 @@
 from rest_framework.pagination import PageNumberPagination
-from rest_framework import mixins
-from rest_framework import viewsets
+from rest_framework import mixins,viewsets,filters
+from rest_framework.authentication import TokenAuthentication
 
 from .models import Goods,GoodsCategory
 from .serializers import GoodsSerializer,CategorySerializer
 
-# from django_filters.rest_framework import DjangoFilterBackend
+from django_filters.rest_framework import DjangoFilterBackend
 from .filters import GoodsFilter
-
-# Create your views here.
+#代码实现自定义用户验证
 
 
 class GoodsListPagination(PageNumberPagination):
-	page_size = 10
+	page_size = 8
 	page_size_query_param = 'page_size'
 	page_query_param = 'page'
 
@@ -28,7 +27,12 @@ class GoodsViewSet(mixins.ListModelMixin,viewsets.GenericViewSet):
 	pagination_class = GoodsListPagination
 	# 自定义过滤器
 	filter_class = GoodsFilter
+	#支持搜索和过滤，写在一起
+	filter_backends = (filters.OrderingFilter,DjangoFilterBackend,filters.SearchFilter)
+	search_fields = ('name', 'goods_desc', 'goods_brief')
+	ordering_fields = ('shop_price', 'add_time')
 
+	authentication_classes = (TokenAuthentication,)
 #商品类型接口
 class CategoryViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
 	queryset = GoodsCategory.objects.filter(category_type=1)

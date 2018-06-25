@@ -22,7 +22,7 @@ class GoodsCategory(models.Model):
 	desc = models.TextField(max_length=100,verbose_name="类目描述")
 
 	#当前类目级别
-	category_type = models.CharField(max_length=30,verbose_name="当前类别",choices=CATEGORY_TYPE)
+	category_type = models.IntegerField(verbose_name="当前类别",choices=CATEGORY_TYPE)
 
 	#父级类目related_name="sub_cat"关联的表联系起来
 	parent_category = models.ForeignKey("self",verbose_name="父级类目",null=True,blank=True,related_name="sub_cat")
