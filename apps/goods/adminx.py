@@ -1,11 +1,25 @@
 from .models import GoodsCategory,Goods,GoodsCategoryBrand,GoodsImage
 import xadmin
+from xadmin import views
 
 
 class GoodsAdmin(object):
-	list_display = ['name','click_num','sold_num',"fav_num","market_price",
-					"shop_price","goods_desc","is_new","is_hot","add_time"]
-	search_fields = ['name']
+	list_display = ["name","click_num","sold_num","fav_num","is_hot","shop_price","goods_nums"]
+	#对商品详细描述，设置富文本这样样式
+	style_fields = {"goods_desc": "ueditor"}
+	#对商品某些字段提供搜索
+	search_fields = ["name","goods_desc","goods_brief"]
+
+
+	class GoodsImageLine(object):
+		model = GoodsImage
+		exclude = ["add_time"]
+		#每次添加一张
+		extra = 1
+		#显示风格，以表格的方式薪水
+		style = "tab"
+
+	inlines = [GoodsImageLine]
 
 
 class GoodsCategoryAdmin(object):

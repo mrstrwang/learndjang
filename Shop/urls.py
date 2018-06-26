@@ -20,6 +20,7 @@ from Shop.settings import MEDIA_ROOT
 from django.views.static import serve
 from goods.views import GoodsViewSet,CategoryViewSet
 from users.views import CodeViewSet,UserViewset
+from user_operation.views import UserFavsViewSet
 from rest_framework.documentation import include_docs_urls
 #终极版路由
 from rest_framework.routers import DefaultRouter
@@ -35,7 +36,8 @@ router.register(r'categorys',CategoryViewSet)
 router.register(r'code',CodeViewSet,base_name='code')
 #用户手机注册，要加上base_name 否则报错
 router.register(r'users',UserViewset,base_name='users')
-
+#用户收藏
+router.register(r'userfavs',UserFavsViewSet)
 
 urlpatterns = [
 	url(r'^xadmin/',xadmin.site.urls),

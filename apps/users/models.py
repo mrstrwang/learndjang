@@ -3,12 +3,12 @@ from django.contrib.auth.models import AbstractUser
 from datetime import datetime
 # Create your models here.
 class UserProfile(AbstractUser):
-	name = models.CharField(max_length=30,null=True,blank=True,verbose_name='姓名')
-	birthday = models.DateField(null=True,blank=True,verbose_name='出生年月')
-	gender = models.CharField(max_length=6,choices=(('male','男'),('female','女')),default='female',verbose_name='性别')
-	mobile = models.CharField(max_length=11,verbose_name='电话')
-	email = models.EmailField(max_length=100,null=True,blank=True,verbose_name='邮箱')
-	add_time = models.DateTimeField(verbose_name='添加时间',default=datetime.now)
+	name = models.CharField(max_length=50,null=True,blank=True,verbose_name="姓名",help_text="姓名")
+	gender = models.CharField(max_length=6,choices=(("male","男"),("female","女")),default="female",verbose_name="性别")
+	birthday = models.DateField(verbose_name="出生年月",null=True,blank=True)
+	mobile = models.CharField(max_length=11,verbose_name="手机号码",null=True,blank=True)
+	email =  models.EmailField(max_length=100,verbose_name="邮箱",null=True,blank=True)
+	add_time = models.DateTimeField(verbose_name="添加时间",default=datetime.now,null=True,blank=True)
 
 	def __str__(self):
 		return self.username

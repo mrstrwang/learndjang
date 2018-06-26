@@ -17,17 +17,15 @@ User = get_user_model()
 class UserViewset(mixins.CreateModelMixin,viewsets.GenericViewSet):
 	queryset = User.objects.all()
 	serializer_class = UserRegSerializer #配置注册序列化
-
 	#当用户注册登录时会有不显示数据的情况，因为缺少token和user
 	def create(self, request, *args, **kwargs):
-		print('=======')
 		serializer = self.get_serializer(data=request.data)
 		serializer.is_valid(raise_exception=True)
 		user = self.perform_create(serializer)
-		# 本质就是自动
-		re_dict = serializer.data
 		# 封装成字典
 		payload = jwt_payload_handler(user)
+		# 本质就是自动
+		re_dict = serializer.data
 		# 安装jwt封装token
 		re_dict["token"] = jwt_encode_handler(payload)
 		re_dict["name"] = user.name if user.name else user.username
