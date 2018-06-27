@@ -10,14 +10,11 @@ User = get_user_model()
 class CodeSerializer(serializers.Serializer):
 
 	mobile = serializers.CharField(max_length=11)
-
 	def validate_mobile(self,mobile):
 		if User.objects.filter(mobile=mobile).count():
 			raise serializers.ValidationError('用户已经存在')
-
 		if not re.match(r"1[3456789]\d{9}$",mobile):
 			raise serializers.ValidationError("您输入的电话号码有误")
-
 		#频次校验,1分钟一次
 		one_minu_ago = datetime.now() -timedelta(minutes=1)
 		if VerifyCode.objects.filter(mobile=mobile,add_time__gt=one_minu_ago).count():
@@ -33,7 +30,6 @@ class UserRegSerializer(serializers.ModelSerializer):
 	password = serializers.CharField(label='密码',style={'input_type':'password'},write_only=True)
 
 	def create(self, validated_data):
-		print('==========')
 		user = super(UserRegSerializer, self).create(validated_data=validated_data)
 		user.set_password(validated_data["password"])
 		# 保存user对象
@@ -66,4 +62,8 @@ class UserRegSerializer(serializers.ModelSerializer):
 		model = User
 		fields = ('username','code','mobile','password')
 
-
+#用户详细信息的序列化器
+class UserDetailSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = User
+		fields = ('name','birthday','gender','email','mobile')

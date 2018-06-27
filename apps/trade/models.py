@@ -15,7 +15,7 @@ class ShopingCart(models.Model):
 	#商品
 	goods = models.ForeignKey(Goods,verbose_name=u"商品")
 	#商品数量
-	goods_nums = models.IntegerField(default=0,verbose_name="商品数量")
+	nums = models.IntegerField(default=0,verbose_name="商品数量")
 	#添加时间
 	add_time = models.DateTimeField(default=datetime.now,verbose_name="添加时间")
 
@@ -76,7 +76,6 @@ class OrderInfo(models.Model):
 
 #订单详情
 class OrderGoods(models.Model):
-
 	"""订单商品详情"""
 	#订单
 	order = models.ForeignKey(OrderInfo,verbose_name=u"订单",related_name="goods")

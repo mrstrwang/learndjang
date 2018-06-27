@@ -80,9 +80,9 @@ class UserAddress(models.Model):
 	address = models.CharField(max_length=200,verbose_name="地址",default="")
 	# 用户签收信息
 	# 签收人
-	signing_name = models.CharField(max_length=30, verbose_name="签收人")
+	signer_name = models.CharField(max_length=30, verbose_name="签收人")
 	# 签收电话
-	signing_mobile = models.CharField(max_length=11, verbose_name="联系电话")
+	signer_mobile = models.CharField(max_length=11, verbose_name="联系电话")
 	# 添加时间
 	add_time = models.DateTimeField(default=datetime.now, verbose_name="添加时间")
 

@@ -40,7 +40,7 @@ class GoodsViewSet(mixins.ListModelMixin,mixins.RetrieveModelMixin,mixins.Create
 		# 得到所有商品
 		queryset = Goods.objects.all()
 		# 得到最低价格
-		pricemin = self.request.query_params.get("pricemin", 0)  # 10
+		pricemin = self.request.query_params.get("pricemin", 0)	 # 10
 		if pricemin:
 			queryset = queryset.filter(shop_price__gte=int(pricemin))
 		return queryset

@@ -3,7 +3,7 @@ import xadmin
 
 
 class UserAddressAdmin(object):
-	pass
+	list_display = ["signer_name", "signer_mobile", "district", "address"]
 
 class UserFavAdmin(object):
 	pass
