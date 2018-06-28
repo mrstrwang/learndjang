@@ -156,7 +156,7 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
         # 'rest_framework.authentication.TokenAuthentication',
-        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        # 'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
     )
 }
 
@@ -170,5 +170,11 @@ JWT_AUTH = {
 
     'JWT_EXPIRATION_DELTA': datetime.timedelta(days=7),
     'JWT_AUTH_HEADER_PREFIX': 'JWT',
-
 }
+
+#配置支付宝key路径
+app_private_key_path = os.path.join(BASE_DIR, 'apps/trade/keys/private.txt')
+alipay_public_key_path = os.path.join(BASE_DIR, 'apps/trade/keys/alipay_public_key.txt')
+
+# 配置静态资源目录
+STATICFILES_DIRS = (os.path.join(BASE_DIR,'static'),)

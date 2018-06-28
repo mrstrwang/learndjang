@@ -7,10 +7,7 @@ from .serializers import GoodsSerializer,CategorySerializer
 
 from django_filters.rest_framework import DjangoFilterBackend
 from .filters import GoodsFilter
-#代码实现自定义用户验证
-
-
-
+# 代码实现自定义用户验证
 
 
 class GoodsListPagination(PageNumberPagination):
@@ -24,7 +21,7 @@ class GoodsViewSet(mixins.ListModelMixin,mixins.RetrieveModelMixin,mixins.Create
 	# 终极版
 	# 得到所有的商品
 	queryset = Goods.objects.all()
-	#序列化器
+	# 序列化器
 	serializer_class = GoodsSerializer
 	#添加分页配置，setting.py就可以省略了
 	pagination_class = GoodsListPagination
@@ -49,9 +46,10 @@ class GoodsViewSet(mixins.ListModelMixin,mixins.RetrieveModelMixin,mixins.Create
 	def get(self, request, *args, **kwargs):
 		return self.list(request, *args, **kwargs)
 
-#商品类型接口
+
+# 商品类型接口
 class CategoryViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
 	queryset = GoodsCategory.objects.filter(category_type=1)
-	#指定序列化器
+	# 指定序列化器
 	serializer_class = CategorySerializer
 

@@ -26,18 +26,19 @@ from rest_framework_jwt.views import obtain_jwt_token
 from goods.views import GoodsViewSet,CategoryViewSet
 from users.views import CodeViewSet,UserViewset
 from user_operation.views import UserFavsViewSet,LeavingMessageViewSet,UserAddressViewSet
-from trade.views import ShopingCartViewSet
+from trade.views import ShopingCartViewSet,OrderViewSet
 
 # 路由器
 router = DefaultRouter()
 router.register(r'goods', GoodsViewSet)
-router.register(r'categorys',CategoryViewSet)
-router.register(r'code',CodeViewSet,base_name='code')
-router.register(r'users',UserViewset,base_name='users')
-router.register(r'userfavs',UserFavsViewSet)
-router.register(r'messages',LeavingMessageViewSet)
-router.register(r'address',UserAddressViewSet)
-router.register(r'shopcarts',ShopingCartViewSet)
+router.register(r'categorys', CategoryViewSet)
+router.register(r'code', CodeViewSet, base_name='code')
+router.register(r'users', UserViewset, base_name='users')
+router.register(r'userfavs', UserFavsViewSet)
+router.register(r'messages', LeavingMessageViewSet)
+router.register(r'address', UserAddressViewSet)
+router.register(r'shopcarts', ShopingCartViewSet)
+router.register(r'orders', OrderViewSet, base_name='orders')
 
 urlpatterns = [
 	url(r'^xadmin/',xadmin.site.urls),
