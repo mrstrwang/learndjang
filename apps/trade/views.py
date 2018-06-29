@@ -72,7 +72,6 @@ class AlipayView(views.APIView):
 	def get(self,request):
 		"""处理支付宝返回的return_url"""
 		print("get request==",request)
-
 		process_dict = {}
 		for key,value in request.GET.items():
 			process_dict[key] = value
@@ -80,7 +79,6 @@ class AlipayView(views.APIView):
 		print(process_dict)
 		alipay = AliPay(
 			appid="2016091300503705",
-
 			# post请求
 			app_notify_url="http://118.190.202.67:8000/alipay/return/",
 			app_private_key_path=app_private_key_path,
@@ -140,7 +138,6 @@ class AlipayView(views.APIView):
 		print(process_dict)
 		alipay = AliPay(
 			appid="2016091300503705",
-
 			# post请求
 			app_notify_url="http://118.190.202.67:8000/alipay/return/",
 			app_private_key_path=app_private_key_path,
