@@ -52,8 +52,7 @@ class UserViewset(mixins.UpdateModelMixin,mixins.CreateModelMixin,mixins.Retriev
 		re_dict["token"] = jwt_encode_handler(payload)
 		re_dict["name"] = user.name if user.name else user.username
 		headers = self.get_success_headers(re_dict)
-		print(re_dict)
-		print(headers)
+
 		return Response(re_dict, status=status.HTTP_201_CREATED, headers=headers)
 
 	def perform_create(self, serializer):
