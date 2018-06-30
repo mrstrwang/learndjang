@@ -49,7 +49,9 @@ INSTALLED_APPS = [
     'rest_framework',
     'django_filters', #过滤
     'corsheaders', #跨域请求
-    'rest_framework.authtoken' #token认证的配置
+    'rest_framework.authtoken', #token认证的配置
+    'social_django',
+
 ]
 
 MIDDLEWARE = [
@@ -80,6 +82,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
@@ -162,6 +166,10 @@ REST_FRAMEWORK = {
 
 AUTHENTICATION_BACKENDS = (
     'users.views.CustomModelBackend',
+    'django.contrib.auth.backends.ModelBackend',
+    'social_core.backends.weibo.WeiboOAuth2',  # 微博登陆认证
+    'social_core.backends.qq.QQOAuth2',  # QQ登录认证
+    'social_core.backends.weixin.WeixinOAuth2',  # 微信登录认证
 )
 
 import datetime
@@ -178,4 +186,17 @@ alipay_public_key_path = os.path.join(BASE_DIR, 'apps/trade/keys/alipay_public_k
 # 配置静态资源目录
 STATICFILES_DIRS = (os.path.join(BASE_DIR,'static'),)
 # 配置支付宝支付成功的回调
-notify_url="http://127.0.0.1:8000/alipay/return/"
+notify_url="http://39.104.172.113//alipay/return/"
+
+SOCIAL_AUTH_STORAGE = 'social_django_mongoengine.models.DjangoStorage'
+
+SOCIAL_AUTH_WEIBO_KEY = '3829953451'
+SOCIAL_AUTH_WEIBO_SECRET = '6e9ad8a70dd0aeb213ec79864e0563fd'
+#微信
+# SOCIAL_AUTH_WEIXIN_KEY = 'foobar'
+# SOCIAL_AUTH_WEIXIN_SECRET = 'bazqux'
+#QQ
+# SOCIAL_AUTH_QQ_KEY = 'foobar'
+# SOCIAL_AUTH_QQ_SECRET = 'bazqux'
+
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/index/'

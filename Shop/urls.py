@@ -53,5 +53,7 @@ urlpatterns = [
 	url(r'^api-token-auth/', views.obtain_auth_token),
 	url(r'^login/', obtain_jwt_token),
 	url(r'alipay/return/', AlipayView.as_view(), name='alipay'),
-	url(r'index/', TemplateView.as_view(template_name='index.html'), name='index')
+	url(r'index/', TemplateView.as_view(template_name='index.html'), name='index'),
+	url(r'^login/$', obtain_jwt_token),
+	url('', include('social_django.urls', namespace='social')),
 ]
