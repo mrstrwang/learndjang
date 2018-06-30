@@ -147,3 +147,19 @@ class Banner(models.Model):
 
 	def __str__(self):
 		return self.goods.name
+
+
+class IndexAd(models.Model):
+	"""首页广告"""
+
+	category = models.ForeignKey(GoodsCategory, null=True, blank=True, verbose_name='商品类目')
+	goods = models.ForeignKey(Goods, null=True, blank=True, verbose_name='商品')
+
+	class Meta:
+		verbose_name = '首页类目商品广告'
+		verbose_name_plural = verbose_name
+
+	def __str__(self):
+		return self.goods.name
+
+

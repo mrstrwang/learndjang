@@ -1,4 +1,4 @@
-from .models import GoodsCategory,Goods,GoodsCategoryBrand,GoodsImage
+from .models import GoodsCategory,Goods,GoodsCategoryBrand,GoodsImage, Banner, IndexAd
 import xadmin
 from xadmin import views
 
@@ -35,7 +35,17 @@ class GoodsImageAdmin(object):
 	pass
 
 
-xadmin.site.register(Goods,GoodsAdmin)
-xadmin.site.register(GoodsCategory,GoodsCategoryAdmin)
-xadmin.site.register(GoodsCategoryBrand,GoodsCategoryBrandAdmin)
-xadmin.site.register(GoodsImage,GoodsImageAdmin)
+class BannersAdmin(object):
+	pass
+
+
+class IndexAdAdmin(object):
+	list_display = ['category', 'goods']
+
+
+xadmin.site.register(Goods, GoodsAdmin)
+xadmin.site.register(GoodsCategory, GoodsCategoryAdmin)
+xadmin.site.register(GoodsCategoryBrand, GoodsCategoryBrandAdmin)
+xadmin.site.register(GoodsImage, GoodsImageAdmin)
+xadmin.site.register(Banner, BannersAdmin)
+xadmin.site.register(IndexAd, IndexAdAdmin)

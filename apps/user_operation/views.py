@@ -23,6 +23,7 @@ class UserAddressViewSet(viewsets.ModelViewSet):
 
 
 class LeavingMessageViewSet(mixins.DestroyModelMixin,mixins.ListModelMixin,mixins.CreateModelMixin,viewsets.GenericViewSet,mixins.RetrieveModelMixin):
+	"""用户留言"""
 	queryset = UserLeavingMessage.objects.all()
 	serializer_class = LeavingMessageSerializers
 	permission_classes = (IsAuthenticated,IsOwnerOrReadOnly)
@@ -35,6 +36,7 @@ class LeavingMessageViewSet(mixins.DestroyModelMixin,mixins.ListModelMixin,mixin
 
 
 class UserFavsViewSet(mixins.CreateModelMixin,mixins.RetrieveModelMixin,mixins.ListModelMixin,mixins.DestroyModelMixin,viewsets.GenericViewSet):
+	"""用户收藏"""
 	queryset = UserFav.objects.all()
 	# 序列化
 	# serializer_class = UserFavSerializers

@@ -7,7 +7,7 @@ from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 
 from Shop.settings import app_private_key_path,alipay_public_key_path
 from .models import ShopingCart, OrderInfo, OrderGoods
-from .serializers import ShopingCartSerializer, ShopingCartDetailSeralizer, OrderSerializer
+from .serializers import ShopingCartSerializer, ShopingCartDetailSeralizer, OrderInfoDetailSerializer, OrderInfoSerializer
 from utils.permissions import IsOwnerOrReadOnly
 from utils.alipay import AliPay
 
@@ -40,7 +40,13 @@ class OrderViewSet(mixins.RetrieveModelMixin,mixins.CreateModelMixin,mixins.List
 	# JWT认证
 	authentication_classes = (JSONWebTokenAuthentication, SessionAuthentication)
 	# 序列化器
-	serializer_class = OrderSerializer
+	# serializer_class = OrderSerializer
+
+	def get_serializer_class(self):
+		if self.action == 'retrieve':
+			return OrderInfoDetailSerializer
+		else:
+			return OrderInfoSerializer
 
 	def get_queryset(self):
 		# 过滤得到当前用户的订单列表
@@ -172,7 +178,7 @@ class AlipayView(views.APIView):
 				# 支付时间
 				exsited_order.pay_time = datetime.now()
 
-				#保存
+				# 保存
 				exsited_order.save()
 
 			# 返回支付成功状态

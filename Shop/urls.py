@@ -16,17 +16,18 @@ Including another URLconf
 from django.conf.urls import url,include
 # from django.contrib import admin
 import xadmin
-from Shop.settings import MEDIA_ROOT
 from django.views.static import serve
+from django.views.generic import TemplateView
 from rest_framework.documentation import include_docs_urls
 from rest_framework.routers import DefaultRouter
 from rest_framework.authtoken import views
 from rest_framework_jwt.views import obtain_jwt_token
 
-from goods.views import GoodsViewSet,CategoryViewSet
+from Shop.settings import MEDIA_ROOT
+from goods.views import GoodsViewSet,CategoryViewSet, BannerViewSet, IndexCategoryViewset
 from users.views import CodeViewSet,UserViewset
 from user_operation.views import UserFavsViewSet,LeavingMessageViewSet,UserAddressViewSet
-from trade.views import ShopingCartViewSet,OrderViewSet
+from trade.views import ShopingCartViewSet,OrderViewSet, AlipayView
 
 # 路由器
 router = DefaultRouter()
@@ -39,6 +40,8 @@ router.register(r'messages', LeavingMessageViewSet)
 router.register(r'address', UserAddressViewSet)
 router.register(r'shopcarts', ShopingCartViewSet)
 router.register(r'orders', OrderViewSet, base_name='orders')
+router.register(r'banners', BannerViewSet, base_name='banners')
+router.register(r'indexgoods', IndexCategoryViewset, base_name='indexgoods')
 
 urlpatterns = [
 	url(r'^xadmin/',xadmin.site.urls),
@@ -48,5 +51,7 @@ urlpatterns = [
 	# 配置路由器，使其主页能看到api，点击到goods页面时也能看到api
 	url(r'^',include(router.urls)),
 	url(r'^api-token-auth/', views.obtain_auth_token),
-	url(r'^login/', obtain_jwt_token)
+	url(r'^login/', obtain_jwt_token),
+	url(r'alipay/return/', AlipayView.as_view(), name='alipay'),
+	url(r'index/', TemplateView.as_view(template_name='index.html'), name='index')
 ]

@@ -175,6 +175,7 @@ JWT_AUTH = {
 #配置支付宝key路径
 app_private_key_path = os.path.join(BASE_DIR, 'apps/trade/keys/private.txt')
 alipay_public_key_path = os.path.join(BASE_DIR, 'apps/trade/keys/alipay_public_key.txt')
-
 # 配置静态资源目录
 STATICFILES_DIRS = (os.path.join(BASE_DIR,'static'),)
+# 配置支付宝支付成功的回调
+notify_url="http://127.0.0.1:8000/alipay/return/"
